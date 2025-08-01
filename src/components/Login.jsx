@@ -3,8 +3,8 @@ import { User, Lock, Mail, Image, Briefcase, KeyRound } from 'lucide-react';
 
 const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
   const [isRegistering, setIsRegistering] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('soto@gmail.com');
+  const [password, setPassword] = useState('12345');
   const [name, setName] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
@@ -67,17 +67,16 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
           </div>
         )}
 
-        <form onSubmit={isRegistering ? handleRegister : handleLogin} className="space-y-5">
+        <div className="space-y-5">
           {isRegistering && (
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
                 <div className="flex items-center">
                   <User size={16} className="mr-2" /> Nombre
                 </div>
               </label>
               <input
                 type="text"
-                id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -87,14 +86,13 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
             </div>
           )}
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               <div className="flex items-center">
                 <Mail size={16} className="mr-2" /> Email
               </div>
             </label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -103,14 +101,13 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               <div className="flex items-center">
                 <Lock size={16} className="mr-2" /> Contraseña
               </div>
             </label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -121,15 +118,14 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
           {isRegistering && (
             <>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageFile">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   <div className="flex items-center">
                     <Image size={16} className="mr-2" /> Imagen de Perfil
                   </div>
                 </label>
                 <input
                   type="file"
-                  id="imageFile"
-                  accept="image/png, image/jpeg, image/gif" // Permite PNG, JPG/JPEG y GIF
+                  accept="image/png, image/jpeg, image/gif"
                   onChange={handleImageChange}
                   className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
@@ -141,13 +137,12 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
                 )}
               </div>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   <div className="flex items-center">
                     <Briefcase size={16} className="mr-2" /> Selecciona tu Rol
                   </div>
                 </label>
                 <select
-                  id="role"
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
                   className="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -161,7 +156,11 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
                       </option>
                     ))
                   ) : (
-                    <option value="" disabled>No hay roles disponibles</option>
+                    <>
+                      <option value="Lectura">Lectura</option>
+                      <option value="Escritura">Escritura</option>
+                      <option value="Administrador">Administrador</option>
+                    </>
                   )}
                 </select>
               </div>
@@ -169,12 +168,12 @@ const Login = ({ onLoginSuccess, onRegisterSuccess, roles = [] }) => {
           )}
 
           <button
-            type="submit"
+            onClick={isRegistering ? handleRegister : handleLogin}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
           >
             {isRegistering ? 'Registrarse' : 'Iniciar Sesión'}
           </button>
-        </form>
+        </div>
 
         <div className="mt-6 text-center">
           <button

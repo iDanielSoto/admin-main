@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ObtenerCoordenadas from './Map';
-import { Map as MapIcon, Home, Users, Settings as SettingsIcon, LogOut, UserPlus, SquareUser, LayoutGrid, ShieldCheck, PlusCircle, Trash2, Building2, Clock, User as UserIcon } from 'lucide-react';
+import { Map as MapIcon, Home, Users, Settings as SettingsIcon, LogOut, UserPlus, SquareUser, LayoutGrid, ShieldCheck, PlusCircle, Trash2, Building2, Clock, User as UserIcon, Calendar } from 'lucide-react';
 import DepartmentsPage from './Dept';
 import LogsPage from './Logs';
 import Login from './Login';
@@ -8,6 +8,7 @@ import EmpleadosPage from './Empleados';
 import GestionarRoles from './GestionarRoles';
 import GestionarPermisos from './GestionarPermisos';
 import Settings from './Settings';
+import SchedulePage from './SchedulePage';
 
 const Sidebar = ({ activeTab, setActiveTab, onLogout, currentUser, disabledModules = [] }) => { 
   const sidebarItems = [
@@ -16,7 +17,7 @@ const Sidebar = ({ activeTab, setActiveTab, onLogout, currentUser, disabledModul
     { icon: <SquareUser />, tab: 'roles' },
     { icon: <ShieldCheck />, tab: 'permissions' },
     { icon: <LayoutGrid />, tab: 'departments' },
-    { icon: <MapIcon />, tab: 'mapa' },
+    { icon: <Calendar />, tab: 'schedule' },
     { icon: <Clock />, tab: 'logs' },
     { icon: <SettingsIcon />, tab: 'settings', alwaysVisible: true },
   ];
@@ -94,17 +95,12 @@ const WelcomeDashboard = ({ currentUser, settings }) => {
         
         {/* Nombre de la empresa */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-6 drop-shadow-sm">
-          {settings.companyName || 'Mi Empresa'}
+          {settings.companyName || 'TecNM'}
         </h1>
-        
-        {/* Mensaje de bienvenida */}
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-600 mb-4 font-light">
-          Bienvenido al Dashboard Administrativo
-        </h2>
         
         {/* Nombre del usuario */}
         <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-blue-600 mb-8">
-          {currentUser?.name || 'Usuario'}
+          {currentUser?.name || 'Administrador'}
         </p>
         
         {/* Información adicional */}
@@ -160,7 +156,7 @@ const AdminDashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'Jesus Daniel Soto', email: 'soto@gmail.com', role: 'Supervisor', department: 'Operaciones', password: '12345', imageUrl: '' },
+    { id: 1, name: 'Daniel Soto', email: 'soto@gmail.com', role: 'Administrador', department: 'Tecnología', password: '12345', imageUrl: '' },
     { id: 2, name: 'Edgar Yahir SS', email: 'misterxxzx@gmail.com', role: 'Administrador', department: 'Tecnología', password: 'Yristan', imageUrl: 'https://cdn.discordapp.com/attachments/1365377054455103508/1384779752589492275/StellarPlace.jpg?ex=685f89a4&is=685e3824&hm=c72c7aecdf20fa1b1ea0d7cf96543e123dcff7037efe0f07188593491f084efe&' },
   ]);
   const [roles, setRoles] = useState([
@@ -387,6 +383,16 @@ const AdminDashboard = () => {
             addLogEntry={addLogEntry}
             totalEmployees={employees.length}
             canModify={canModifyDepartments}
+          />
+        );
+
+      case 'schedule':
+        return (
+          <SchedulePage
+            employees={employees}
+            addLogEntry={addLogEntry}
+            hasPermission={hasPermission}
+            currentUser={currentUser}
           />
         );
 
