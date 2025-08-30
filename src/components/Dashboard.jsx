@@ -70,10 +70,9 @@ const Sidebar = ({
           onClick={() => setActiveTab(item.tab)}
           className={`
             p-3 rounded transition-colors duration-200
-            ${
-              activeTab === item.tab
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-700 text-gray-300"
+            ${activeTab === item.tab
+              ? "bg-blue-600 text-white"
+              : "hover:bg-gray-700 text-gray-300"
             }
           `}
         >
@@ -257,7 +256,7 @@ const AdminDashboard = () => {
     },
   ]);
   const [settings, setSettings] = useState({
-    companyName: "Mi Empresa",
+    companyName: "TecNM",
     companyLogo: "",
     notifications: true,
     language: "es",
@@ -456,8 +455,7 @@ const AdminDashboard = () => {
       "Eliminación",
       "Empleado",
       employeeToDelete.name,
-      `Empleado eliminado: ${employeeToDelete.name}${
-        isSelfDelete ? " (Auto-eliminación)" : ""
+      `Empleado eliminado: ${employeeToDelete.name}${isSelfDelete ? " (Auto-eliminación)" : ""
       }`
     );
     if (isSelfDelete) {
